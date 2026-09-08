@@ -1,2 +1,2 @@
 b2d69122f8960ddeb65b4f2b7f4a413efa485c7771a540582608afa626660d75  arch-be-linux-x86_64
-62a2c8eee4551f2d106a8006d51f03f92ac4d7a7c4e7eb751b756f2dca9a28bf  deploy-kit-v0.1.3.tar.gz
+922d53f27b9b8e2b85cbcf6e2ef0a21d3db871f66098b1d0d3da2a1f7d91b01e  deploy-kit-v0.1.3.tar.gz
