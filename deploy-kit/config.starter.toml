@@ -110,3 +110,26 @@ include_hooks = true
 # [archify]
 # enabled = true
 # cli_path = "/home/<user>/.arch-harness/archify/bin/archify.mjs"
+
+# ── GLM-5.3 (Z.AI): сильный судья рубрик и сложные задачи ─────────────────
+# Нюанс провайдера: у семейства glm-5.3 thinking НЕ отключается — «off»
+# эмулируется enabled + reasoning_effort=low (иначе HTTP 1210).
+[models."glm-5.3"]
+base_url = "https://api.z.ai/api/paas/v4"
+model = "glm-5.3"
+api_key_env = "ZHIPU_API_KEY"
+max_tokens = 8192
+timeout_secs = 300
+context_limit = 1000000
+
+[models."glm-5.3".thinking_on]
+reasoning_effort = "max"
+
+[models."glm-5.3".thinking_on.thinking]
+type = "enabled"
+
+[models."glm-5.3".thinking_off]
+reasoning_effort = "low"
+
+[models."glm-5.3".thinking_off.thinking]
+type = "enabled"
