@@ -23,16 +23,28 @@
 
 ## Быстрый старт (5 минут)
 
-Скачайте из [последнего релиза](../../releases/latest) два файла:
-`arch-be-linux-x86_64` (бинарь) и `deploy-kit-v0.1.3.tar.gz`
-(инструкции + стартовый конфиг). Затем:
+Скачайте из [последнего релиза](../../releases/latest) три файла:
+`arch-be-linux-x86_64` (бинарь), `deploy-kit-v0.1.4.tar.gz`
+(инструкции + стартовый конфиг) и `archify-vendored-2.17.0-dev.1.tar.gz`
+(движок диаграмм Archify, закреплённая версия). Затем:
 
 ```bash
-sha256sum -c SHA256SUMS.txt                 # сверка целостности — обе строки «OK»
+sha256sum -c SHA256SUMS.txt                 # сверка целостности — все строки «OK»
 cp arch-be-linux-x86_64 ~/.local/bin/arch-be && chmod +x ~/.local/bin/arch-be
 arch-be init                                # конфиг + ассеты в ~/.arch-harness
 export DEEPSEEK_API_KEY="sk-..."            # ваш ЛИЧНЫЙ ключ: platform.deepseek.com
 arch-be run -q "Привет! Кто ты?"            # проверка; дальше: arch-be (интерактивный TUI)
+```
+
+**Диаграммы Archify** (понадобится Node.js >= 18): инструменты зашиты в
+бинарь, движок ставится из вендоренного tarball'а релиза — с сетевого
+`npx` не ставьте, там непроверенный latest:
+
+```bash
+tar xzf archify-vendored-2.17.0-dev.1.tar.gz -C ~/.arch-harness/
+# в ~/.config/arch-harness/config.toml → [archify]:
+# cli_path = "/home/<user>/.arch-harness/archify/bin/archify.mjs"  (абсолютный путь, ~ не работает)
+arch-be doctor                              # ✓ archify node ... + CLI .../archify.mjs
 ```
 
 **Бесплатный старт без банковской карты:** регистрация на
@@ -50,6 +62,7 @@ arch-be run -q "Привет! Кто ты?"            # проверка; да�
 | [deploy-kit/ИНСТРУКЦИЯ_АГЕНТ.md](deploy-kit/ИНСТРУКЦИЯ_АГЕНТ.md) | Контракт для ИИ-агента, который разворачивает харнесс за вас |
 | [deploy-kit/config.starter.toml](deploy-kit/config.starter.toml) | Готовый минимальный конфиг: DeepSeek + GLM + Kimi + локальная модель |
 | [deploy-kit/ПРОВЕРКА.md](deploy-kit/ПРОВЕРКА.md) | Протокол живого тестирования (6 волн) |
+| [vendor/archify/](vendor/archify/) | Вендоренный движок диаграмм Archify 2.17.0-dev.1 (источник tarball'а релиза; MIT, © tt-a1i) |
 | [SHA256SUMS.txt](SHA256SUMS.txt) | Контрольные суммы ассетов релиза |
 
 Если настраивать будет ваш ИИ-агент — передайте ему каталог deploy-kit
@@ -66,7 +79,12 @@ arch-be run -q "Привет! Кто ты?"            # проверка; да�
 - дефолтные секции моделей: deepseek, deepseek-pro, glm, glm-4.7, glm-air,
   glm-flash, glm-5.3-flash, kimi, gigachat* — работают сразу после
   установки ключа в окружение;
-- 3 MCP-сервера, примеры cron и fitness-правил (CONSTRAINTS).
+- 3 MCP-сервера, примеры cron и fitness-правил (CONSTRAINTS);
+- инструменты диаграмм `archify_show/validate/deliver/compare` — но
+  движок Archify (Node.js CLI) в бинарь НЕ зашит: он идёт отдельным
+  вендоренным tarball'ом релиза с закреплённой версией
+  (`archify-vendored-2.17.0-dev.1.tar.gz`, проверенная с харнессом по
+  контракту `schemaVersion: 1`). Установка — 2 команды из быстрого старта.
 
 Своё наращивается без пересборки: база знаний (`[knowledge].dirs` +
 `arch-be kb`), свои плагины (`[plugins].dirs`), глобальная память
