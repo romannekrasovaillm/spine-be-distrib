@@ -24,7 +24,7 @@
 ## Быстрый старт (5 минут)
 
 Скачайте из [последнего релиза](../../releases/latest) три файла:
-`arch-be-linux-x86_64` (бинарь), `deploy-kit-v0.1.4.tar.gz`
+`arch-be-linux-x86_64` (бинарь), `deploy-kit-v0.1.5.tar.gz`
 (инструкции + стартовый конфиг) и `archify-vendored-2.17.0-dev.1.tar.gz`
 (движок диаграмм Archify, закреплённая версия). Затем:
 
@@ -44,7 +44,7 @@ arch-be run -q "Привет! Кто ты?"            # проверка; да�
 tar xzf archify-vendored-2.17.0-dev.1.tar.gz -C ~/.arch-harness/
 # в ~/.config/arch-harness/config.toml → [archify]:
 # cli_path = "/home/<user>/.arch-harness/archify/bin/archify.mjs"  (абсолютный путь, ~ не работает)
-arch-be doctor                              # ✓ archify node ... + CLI .../archify.mjs
+arch-be doctor                              # ✓ archify node ... + CLI ... (версия — проверенная)
 ```
 
 **Бесплатный старт без банковской карты:** регистрация на
